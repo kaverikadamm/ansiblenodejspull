@@ -1,0 +1,19 @@
+- name: Deploy NodeJS App using Pull Model
+  hosts: localhost
+  become: yes
+
+  tasks:
+    - name: Install NodeJS
+      apt:
+        name: nodejs
+        state: present
+        update_cache: yes
+        
+    - name: Copy app.js
+      copy:
+        src: app.js
+        dest: /home/kaveri/app.js
+
+    - name: Run NodeJS App
+      shell: |
+        nohup node /home/kaveri/app.js > /dev/null 2>&1 &
